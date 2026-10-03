@@ -66,4 +66,18 @@ public class SampleApi {
 		
 		return rawHtml;
 	}
+	
+	@Path("search-return-response")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public SearchResponse searchReturnResponse(SearchRequest req) {
+		System.out.println("DTO = " + req);
+		System.out.println("keyword = " + req.getKeyword());
+		
+		return new SearchResponse(
+				req.getKeyword(),
+				"検索しました"
+			);
+	}
 }
