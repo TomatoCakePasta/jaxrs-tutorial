@@ -28,4 +28,9 @@ public class SearchResponse {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
+	@Override
+	public String toString() {
+		return "override toString: SearchResponse [keyword = " + keyword + ", message = " + message + "]";
+	}
 }
