@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Search</title>
+</head>
+
+<body>
+
+    <h1>検索</h1>
+
+    <form id="searchForm">
+        <input type="text" id="keyword" placeholder="検索キーワード">
+        <button type="submit">検索</button>
+    </form>
+
+    <h2>レスポンス</h2>
+    <pre id="result"></pre>
+
+    <script>
+        document.getElementById("searchForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const keyword = document.getElementById("keyword").value;
+
+            const request = {
+                keyword: keyword
+            };
+
+            const response = await fetch("/jaxrs-tutorial/api/search", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(request)
+            });
+
+            const result = await response.text();
+
+            document.getElementById("result").textContent = result;
+        });
+    </script>
+
+</body>
+
+</html>
