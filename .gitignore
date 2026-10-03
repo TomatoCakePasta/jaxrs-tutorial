@@ -1,0 +1,21 @@
+# Maven
+target/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Java build output
+build/
+*.class
+
+# Eclipse / Maven WTP
+.metadata/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
