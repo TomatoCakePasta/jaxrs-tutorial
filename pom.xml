@@ -4,13 +4,20 @@
   <artifactId>jaxrs-tutorial</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+  
+  <properties>
+  	<jersey.version>3.1.1</jersey.version>
+  </properties>
+  
   <build>
+  	<finalName>jaxrs-tutorial</finalName>
+  
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
         <configuration>
-          <release>25</release>
+          <release>17</release>
         </configuration>
       </plugin>
       <plugin>
@@ -19,4 +26,28 @@
       </plugin>
     </plugins>
   </build>
+  
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+			<groupId>org.glassfish.jersey</groupId>
+			<artifactId>jersey-bom</artifactId>
+			<version>${jersey.version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+  		</dependency>
+  	</dependencies>	
+  </dependencyManagement>
+  
+	<dependencies>
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+		</dependency>
+	</dependencies>
 </project>
