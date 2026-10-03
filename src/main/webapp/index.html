@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 
 <head>
@@ -11,12 +12,35 @@
     <h1>検索</h1>
 
     <form id="searchForm">
+
         <input type="text" id="keyword" placeholder="検索キーワード">
+
+        <p>レスポンス形式：</p>
+
+        <label>
+            <input type="radio" name="responseType" value="html" checked>
+            HTML
+        </label>
+
+        <label>
+            <input type="radio" name="responseType" value="json">
+            JSON
+        </label>
+
+        <br><br>
+
         <button type="submit">検索</button>
+
     </form>
 
     <h2>レスポンス</h2>
-    <pre id="result"></pre>
+
+    <!-- HTML表示用 -->
+    <iframe id="htmlResult" style="width: 100%; height: 300px; border: 1px solid #ccc;">
+    </iframe>
+
+    <!-- JSON表示用 -->
+    <pre id="jsonResult"></pre>
 
     <script>
         document.getElementById("searchForm").addEventListener("submit", async (event) => {
@@ -24,11 +48,21 @@
 
             const keyword = document.getElementById("keyword").value;
 
+            const responseType =
+                document.querySelector('input[name="responseType"]:checked').value;
+
             const request = {
                 keyword: keyword
             };
 
-            const response = await fetch("/jaxrs-tutorial/api/search", {
+            const url_html = "/jaxrs-tutorial/api/search";
+            const url_json = "/jaxrs-tutorial/api/search-return-response";
+
+            const url = responseType === "html"
+                ? url_html
+                : url_json;
+
+            const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -38,7 +72,25 @@
 
             const result = await response.text();
 
-            document.getElementById("result").textContent = result;
+            const iframe = document.getElementById("htmlResult");
+            const jsonResult = document.getElementById("jsonResult");
+
+            if (responseType === "html") {
+
+                // HTMLとしてレンダリング
+                iframe.srcdoc = result;
+
+                // JSON表示を隠す
+                jsonResult.textContent = "";
+
+            } else {
+
+                // JSONをテキストとして表示
+                jsonResult.textContent = result;
+
+                // iframeを空にする
+                iframe.srcdoc = "";
+            }
         });
     </script>
 
