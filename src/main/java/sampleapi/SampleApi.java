@@ -1,5 +1,6 @@
 package sampleapi;
 
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -41,5 +42,26 @@ public class SampleApi {
 	            """;
 
 	    return sampleHtml;
+	}
+	
+	@Path("search")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
+	public String search(SearchRequest req) {
+		
+		System.out.println("DTO = " + req);
+		System.out.println("keyword = " + req.getKeyword());
+		
+		String rawHtml = """
+	            <!DOCTYPE html>
+	            <html lang="ja">
+	            <body>
+	                <h1>検索結果</h1>
+	                <p>検索キーワード：%s</p>
+	            </body>
+	            </html>
+	            """.formatted(req.getKeyword());
+		
+		return rawHtml;
 	}
 }
