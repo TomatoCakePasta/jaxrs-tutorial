@@ -55,6 +55,10 @@ public class SampleApi {
 		System.out.println("DTO = " + req);
 		System.out.println("keyword = " + req.getKeyword());
 		
+		if ("error".equals(req.getKeyword())) {
+			throw new SearchException("検索処理でエラーが発生しました");
+		}
+		
 		String rawHtml = """
 	            <!DOCTYPE html>
 	            <html lang="ja">
@@ -73,8 +77,13 @@ public class SampleApi {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public SearchResponse searchReturnResponse(SearchRequest req) {
+		System.out.println("\n=== Resource Method ===");
 		System.out.println("DTO = " + req);
 		System.out.println("keyword = " + req.getKeyword());
+		
+		if ("error".equals(req.getKeyword())) {
+			throw new SearchException("検索処理でエラーが発生しました");
+		}
 		
 		return new SearchResponse(
 				req.getKeyword(),
