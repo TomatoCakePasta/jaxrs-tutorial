@@ -19,7 +19,7 @@ public class MyResponseFilter
 			throws IOException {
 		// TODO 自動生成されたメソッド・スタブ
 		
-		System.out.println("=== Response Filter === ");
+		System.out.println("\n=== Response Filter === ");
 		
 		System.out.println("Status = "
 				+ responseContext.getStatus());

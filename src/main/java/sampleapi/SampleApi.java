@@ -51,6 +51,7 @@ public class SampleApi {
 	@Produces(MediaType.TEXT_HTML)
 	public String search(SearchRequest req) {
 		
+		System.out.println("\n=== Resource Method ===");
 		System.out.println("DTO = " + req);
 		System.out.println("keyword = " + req.getKeyword());
 		

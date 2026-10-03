@@ -29,6 +29,7 @@ public class MyJsonMessageBodyProvider
 			Annotation[] annotations,
 			MediaType mediaType) {
 		boolean isReadable = (type == SearchRequest.class);
+		System.out.println("\n=== MessageBodyReader ===");
 		System.out.println("MyJsonMessageBodyProvider.isReadable returns: " + isReadable);
 		return isReadable;
 	}
@@ -43,6 +44,7 @@ public class MyJsonMessageBodyProvider
 			InputStream entityStream) 
 			throws IOException, WebApplicationException {
 		
+		System.out.println(entityStream);
 		String json = new String(
 				entityStream.readAllBytes(),
 				StandardCharsets.UTF_8
@@ -73,6 +75,7 @@ public class MyJsonMessageBodyProvider
 			MediaType mediaType) {
 		// TODO 自動生成されたメソッド・スタブ
 		boolean isWritable = (type == SearchResponse.class);
+		System.out.println("\n=== MessageBodyWriter ===");
 		System.out.println("MyJsonMessageBodyProvider.isWritable returns: " + isWritable);
 		return isWritable;
 	}
