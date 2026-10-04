@@ -9,69 +9,69 @@ import jakarta.ws.rs.core.MediaType;
 
 @Path("")
 public class SampleApi {
-	
+
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getPlainText() {
 		String sampleHtml = "";
-		return "Got it !!!";
+		return "Hello World";
 	}
-	
+
 	@Path("json")
 	@GET
 	public String getJson() {
 		String sampleJson = "{}";
 		return sampleJson;
 	}
-	
+
 	@Path("html")
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public String getHtml() {
-	    String sampleHtml = """
-	            <!DOCTYPE html>
-	            <html lang="ja">
-	            <head>
-	                <meta charset="UTF-8">
-	                <title>JAX-RS Sample</title>
-	            </head>
-	            <body>
-	                <h1>Got it !!!</h1>
-	                <p>JerseyからHTMLを返しています。</p>
-	            </body>
-	            </html>
-	            """;
+		String sampleHtml = """
+				<!DOCTYPE html>
+				<html lang="ja">
+				<head>
+				    <meta charset="UTF-8">
+				    <title>JAX-RS Sample</title>
+				</head>
+				<body>
+				    <h1>Hello World</h1>
+				    <p>JerseyからHTMLを返しています。</p>
+				</body>
+				</html>
+				""";
 
-	    return sampleHtml;
+		return sampleHtml;
 	}
-	
+
 	@Path("search")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_HTML)
 	public String search(SearchRequest req) {
-		
+
 		System.out.println("\n=== Resource Method ===");
 		System.out.println("DTO = " + req);
 		System.out.println("keyword = " + req.getKeyword());
-		
+
 		if ("error".equals(req.getKeyword())) {
 			throw new SearchException("検索処理でエラーが発生しました");
 		}
-		
+
 		String rawHtml = """
-	            <!DOCTYPE html>
-	            <html lang="ja">
-	            <body>
-	                <h1>検索結果</h1>
-	                <p>検索キーワード：%s</p>
-	            </body>
-	            </html>
-	            """.formatted(req.getKeyword());
-		
+				<!DOCTYPE html>
+				<html lang="ja">
+				<body>
+				    <h1>検索結果</h1>
+				    <p>検索キーワード：%s</p>
+				</body>
+				</html>
+				""".formatted(req.getKeyword());
+
 		return rawHtml;
 	}
-	
+
 	@Path("search-return-response")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -80,14 +80,13 @@ public class SampleApi {
 		System.out.println("\n=== Resource Method ===");
 		System.out.println("DTO = " + req);
 		System.out.println("keyword = " + req.getKeyword());
-		
+
 		if ("error".equals(req.getKeyword())) {
 			throw new SearchException("検索処理でエラーが発生しました");
 		}
-		
+
 		return new SearchResponse(
 				req.getKeyword(),
-				"検索しました"
-			);
+				"検索しました");
 	}
 }
